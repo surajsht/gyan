@@ -92,6 +92,71 @@ useEffect(() => {
 
 ```jsx
  <div className="user-info">
-        Logged in as : {loggedinUser.email}
-      </div>
-      
+  Logged in as : {authUser?.email}
+</div>
+```
+
+## Logout user
+
+- Import SignOut from 'firebase/auth'
+
+```jsx
+import { signOut } from 'firebase/auth'
+```
+
+### create a function for logging out user
+
+```jsx
+let LogOut = async () => {
+  try {
+    await signOut(auth)
+  } catch(e) {
+    console.error(e)
+  }
+}
+```
+
+### Initialize LogOut in log out button
+
+```jsx
+<button onClick = {LogOut}> Log out </button>
+```
+
+## Sign in user with email and password
+
+- Import useState from 'react'
+- Import signInWithEmailAndPassword
+
+```jsx
+import { useState } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+```
+
+### Create a state form email and password
+
+```jsx
+let [email, getEmail] = useState('')
+let [password, getPassword] = useState('')
+```
+
+### Create a function for signing user with email and password
+
+```jsx
+let SigninUser = async () => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password)
+  } catch(e) {
+    console.error(e)
+  }
+}
+```
+
+### Call SigninUser in **sign in** button
+
+```jsx
+<div>
+  <input type = 'text' value = {e => getEmail(e.target.value)} />
+  <input type = 'password' value = {e => getPassword(e.target.value)} />
+  <button onClick = {signinUser}> Sign in </button>
+</div>
+```
